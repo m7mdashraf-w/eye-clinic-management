@@ -21,28 +21,24 @@
             --border-radius: 8px;
             --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
         html, body {
             height: 100%;
             overflow: hidden;
             background-color: #f5f5f5;
             direction: rtl;
         }
-
         .app-container {
             display: flex;
             flex-direction: column;
             height: 100vh;
             width: 100vw;
         }
-
         .container {
             max-width: 100%;
             margin: 0;
@@ -52,7 +48,6 @@
             height: 100%;
             overflow: hidden;
         }
-
         header {
             background-color: var(--white);
             box-shadow: var(--box-shadow);
@@ -63,13 +58,11 @@
             flex-wrap: wrap;
             z-index: 10;
         }
-
         .date-navigation {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .date-btn {
             background-color: var(--default-color);
             color: var(--white);
@@ -81,11 +74,9 @@
             transition: all 0.3s ease;
             font-size: 20px;
         }
-
         .date-btn:hover {
             opacity: 0.9;
         }
-
         .current-date {
             font-size: 28px;
             font-weight: bold;
@@ -96,13 +87,11 @@
             min-width: 200px;
             text-align: center;
         }
-
         .search-container {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .search-input {
             padding: 15px 20px;
             border: 2px solid #ddd;
@@ -110,7 +99,6 @@
             font-size: 18px;
             width: 350px;
         }
-
         .btn {
             padding: 15px 25px;
             border: none;
@@ -123,31 +111,25 @@
             gap: 8px;
             font-size: 20px;
         }
-
         .btn-primary {
             background-color: var(--primary-color);
             color: var(--white);
         }
-
         .btn-secondary {
             background-color: var(--secondary-color);
             color: var(--white);
         }
-
         .btn-danger {
             background-color: var(--danger-color);
             color: var(--white);
         }
-
         .btn-default {
             background-color: var(--default-color);
             color: var(--white);
         }
-
         .btn:hover {
             opacity: 0.9;
         }
-
         .main-content {
             background-color: var(--white);
             box-shadow: var(--box-shadow);
@@ -158,23 +140,19 @@
             margin: 10px;
             border-radius: var(--border-radius);
         }
-
         .table-container {
             overflow: auto;
             flex-grow: 1;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
         }
-
         th, td {
             padding: 15px;
             text-align: center;
             border-bottom: 1px solid #ddd;
         }
-
         th {
             background-color: var(--light-color);
             font-size: 24px;
@@ -183,21 +161,17 @@
             top: 0;
             z-index: 5;
         }
-
         td {
             font-size: 18px;
         }
-
         tr:hover {
             background-color: #f5f5f5;
         }
-
         .actions {
             display: flex;
             justify-content: center;
             gap: 10px;
         }
-
         .footer-actions {
             background-color: var(--white);
             box-shadow: var(--box-shadow);
@@ -208,18 +182,15 @@
             flex-wrap: wrap;
             z-index: 10;
         }
-
         .stats {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-
         .stat-item {
             font-size: 20px;
             font-weight: bold;
         }
-
         .modal {
             display: none;
             position: fixed;
@@ -231,7 +202,6 @@
             z-index: 1000;
             overflow: auto;
         }
-
         .modal-content {
             background-color: var(--white);
             margin: 5% auto;
@@ -241,7 +211,6 @@
             max-width: 1200px;
             position: relative;
         }
-
         .close {
             position: absolute;
             top: 10px;
@@ -250,18 +219,15 @@
             font-weight: bold;
             cursor: pointer;
         }
-
         .form-group {
             margin-bottom: 20px;
         }
-
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
             font-size: 18px;
         }
-
         .form-control {
             width: 100%;
             padding: 15px;
@@ -269,13 +235,11 @@
             border-radius: var(--border-radius);
             font-size: 18px;
         }
-
         .date-selector {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .date-selector button {
             background-color: var(--default-color);
             color: var(--white);
@@ -285,7 +249,6 @@
             cursor: pointer;
             font-size: 16px;
         }
-
         .date-display {
             padding: 12px 20px;
             border: 2px solid #ddd;
@@ -295,14 +258,12 @@
             text-align: center;
             font-size: 18px;
         }
-
         .form-actions {
             display: flex;
             justify-content: center;
             gap: 20px;
             margin-top: 30px;
         }
-
         .notification {
             position: fixed;
             top: 20px;
@@ -316,51 +277,20 @@
             display: none;
             font-size: 18px;
         }
-
         .notification.error {
             background-color: var(--danger-color);
         }
-
         .notification.success {
             background-color: var(--primary-color);
         }
-
         .modal-table-container {
             max-height: 60vh;
             overflow: auto;
             margin-top: 20px;
         }
-
         .modal-search-container {
             margin-bottom: 20px;
         }
-
-        .database-info {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 15px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            max-width: 300px;
-            font-size: 14px;
-            z-index: 100;
-        }
-
-        .database-info h3 {
-            margin-bottom: 10px;
-            color: var(--secondary-color);
-        }
-
-        .database-info ul {
-            padding-right: 20px;
-        }
-
-        .database-info li {
-            margin-bottom: 5px;
-        }
-
         .loading {
             position: fixed;
             top: 50%;
@@ -373,7 +303,6 @@
             z-index: 3000;
             display: none;
         }
-
         @media (max-width: 768px) {
             header, .footer-actions {
                 flex-direction: column;
@@ -401,21 +330,18 @@
                 width: 95%;
                 margin: 10% auto;
             }
-            
-            .database-info {
-                display: none;
-            }
         }
     </style>
 </head>
 <body>
+    
     <div class="app-container">
         <div class="container">
             <header>
                 <div class="date-navigation">
-                    <button class="date-btn" id="prevDayBtn"><i class="fas fa-chevron-right"></i></button>
+                    <button class="date-btn" id="prevDayBtn"><i class="fas fa-chevron-left"></i></button>
                     <div class="current-date" id="currentDate">2023-06-15</div>
-                    <button class="date-btn" id="nextDayBtn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="date-btn" id="nextDayBtn"><i class="fas fa-chevron-right"></i></button>
                     <button class="date-btn" id="todayBtn">اليوم</button>
                 </div>
                 
@@ -498,18 +424,18 @@
                 <div class="form-group">
                     <label>تاريخ الكشف</label>
                     <div class="date-selector">
-                        <button type="button" id="examDatePrev"><i class="fas fa-chevron-right"></i></button>
+                        <button type="button" id="examDatePrev"><i class="fas fa-chevron-left"></i></button>
                         <div class="date-display" id="examDateDisplay">2023-06-15</div>
-                        <button type="button" id="examDateNext"><i class="fas fa-chevron-left"></i></button>
+                        <button type="button" id="examDateNext"><i class="fas fa-chevron-right"></i></button>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label>المتابعة القادمة</label>
                     <div class="date-selector">
-                        <button type="button" id="followUpDatePrev"><i class="fas fa-chevron-right"></i></button>
+                        <button type="button" id="followUpDatePrev"><i class="fas fa-chevron-left"></i></button>
                         <div class="date-display" id="followUpDateDisplay">2023-06-15</div>
-                        <button type="button" id="followUpDateNext"><i class="fas fa-chevron-left"></i></button>
+                        <button type="button" id="followUpDateNext"><i class="fas fa-chevron-right"></i></button>
                         <button type="button" class="btn btn-default" id="noFollowUpBtn">ليس هناك</button>
                     </div>
                 </div>
@@ -601,31 +527,22 @@
         <i class="fas fa-spinner fa-spin"></i> جاري التحميل...
     </div>
     
-    <!-- معلومات حول قاعدة البيانات -->
-    <div class="database-info">
-        <h3>معلومات قاعدة البيانات</h3>
-        <p>هذا التطبيق يستخدم Firebase لحفظ البيانات بشكل دائم.</p>
-        <ul>
-            <li>البيانات محفوظة بشكل آمن في السحابة</li>
-            <li>متاحة من أي جهاز</li>
-            <li>تتزامن تلقائياً</li>
-        </ul>
-    </div>
-    
     <script>
         // إعداد Firebase - يجب استبدال هذه القيم بإعدادات مشروعك
         const firebaseConfig = {
-            apiKey: "AIzaSyBqN1yY8X6n6v8w7z9A1B2C3D4E5F6G7H8I9J0",
+            apiKey: "AIzaSyAxrMeMIXA6PccgbhoTLzDtyZmlryntvzE",
             authDomain: "eye-clinic-management.firebaseapp.com",
             projectId: "eye-clinic-management",
-            storageBucket: "eye-clinic-management.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abcdef123456"
+            storageBucket: "eye-clinic-management.firebasestorage.app",
+            messagingSenderId: "29798010037",
+            appId: "1:29798010037:web:ea9437ca4055a2c52b42fc",
+            measurementId: "G-98YSVKCJ5W"
         };
 
         // تهيئة Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
+        const analytics = getAnalytics(app);
         
         // بيانات المرضى (محاكاة)
         let patients = [];
@@ -724,8 +641,8 @@
             updateStats();
             
             // أحداث الأزرار
-            document.getElementById('prevDayBtn').addEventListener('click', () => changeDate(-1)); // السهم الأيمن ينقص التاريخ
-            document.getElementById('nextDayBtn').addEventListener('click', () => changeDate(1));  // السهم الأيسر يزيد التاريخ
+            document.getElementById('prevDayBtn').addEventListener('click', () => changeDate(1)); // السهم الأيسر يزيد التاريخ
+            document.getElementById('nextDayBtn').addEventListener('click', () => changeDate(-1));  // السهم الأيمن ينقص التاريخ
             document.getElementById('todayBtn').addEventListener('click', goToToday);
             document.getElementById('addPatientBtn').addEventListener('click', openAddPatientModal);
             document.getElementById('editPatientBtn').addEventListener('click', openEditPatientModal);
@@ -738,10 +655,10 @@
             document.getElementById('noFollowUpBtn').addEventListener('click', setNoFollowUp);
             
             // أحداث محددات التاريخ في النموذج
-            document.getElementById('examDatePrev').addEventListener('click', () => changeExamDate(-1));
-            document.getElementById('examDateNext').addEventListener('click', () => changeExamDate(1));
-            document.getElementById('followUpDatePrev').addEventListener('click', () => changeFollowUpDate(-1));
-            document.getElementById('followUpDateNext').addEventListener('click', () => changeFollowUpDate(1));
+            document.getElementById('examDatePrev').addEventListener('click', () => changeExamDate(1));
+            document.getElementById('examDateNext').addEventListener('click', () => changeExamDate(-1));
+            document.getElementById('followUpDatePrev').addEventListener('click', () => changeFollowUpDate(1));
+            document.getElementById('followUpDateNext').addEventListener('click', () => changeFollowUpDate(-1));
             
             // أحداث البحث
             searchInput.addEventListener('input', filterPatients);
