@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة مرضى عيادة العيون</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <style>
+        :root {
+            --primary-color: #33B567;
+            --secondary-color: #3461A5;
+            --danger-color: #AD2323;
+            --default-color: #8F9E91;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --white: #ffffff;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            direction: rtl;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        header {
+            background-color: var(--white);
+            box-shadow: var(--box-shadow);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            z-index: 10;
+        }
+
+        .date-navigation {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .date-btn {
+            background-color: var(--default-color);
+            color: var(--white);
+            border: none;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 20px;
+        }
+
+        .date-btn:hover {
+            opacity: 0.9;
+        }
+
+        .current-date {
+            font-size: 28px;
+            font-weight: bold;
+            padding: 15px 25px;
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            background-color: var(--white);
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-input {
+            padding: 15px 20px;
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 18px;
+            width: 350px;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: var(--white);
+        }
+
+        .btn-default {
+            background-color: var(--default-color);
+            color: var(--white);
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .main-content {
+            background-color: var(--white);
+            box-shadow: var(--box-shadow);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            margin: 10px;
+            border-radius: var(--border-radius);
+        }
+
+        .table-container {
+            overflow: auto;
+            flex-grow: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--light-color);
+            font-size: 24px;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+
+        td {
+            font-size: 18px;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .footer-actions {
+            background-color: var(--white);
+            box-shadow: var(--box-shadow);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            z-index: 10;
+        }
+
+        .stats {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .stat-item {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            width: 95%;
+            max-width: 1200px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 18px;
+        }
+
+        .date-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .date-selector button {
+            background-color: var(--default-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .date-display {
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            min-width: 170px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            z-index: 2000;
+            display: none;
+            font-size: 18px;
+        }
+
+        .notification.error {
+            background-color: var(--danger-color);
+        }
+
+        .notification.success {
+            background-color: var(--primary-color);
+        }
+
+        .modal-table-container {
+            max-height: 60vh;
+            overflow: auto;
+            margin-top: 20px;
+        }
+
+        .modal-search-container {
+            margin-bottom: 20px;
+        }
+
+        .database-info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            max-width: 300px;
+            font-size: 14px;
+            z-index: 100;
+        }
+
+        .database-info h3 {
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .database-info ul {
+            padding-right: 20px;
+        }
+
+        .database-info li {
+            margin-bottom: 5px;
+        }
+
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            z-index: 3000;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            header, .footer-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+            
+            th {
+                font-size: 16px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+            
+            .database-info {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="container">
+            <header>
+                <div class="date-navigation">
+                    <button class="date-btn" id="prevDayBtn"><i class="fas fa-chevron-right"></i></button>
+                    <div class="current-date" id="currentDate">2023-06-15</div>
+                    <button class="date-btn" id="nextDayBtn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="date-btn" id="todayBtn">اليوم</button>
+                </div>
+                
+                <div class="search-container">
+                    <input type="text" class="search-input" id="searchInput" placeholder="بحث...">
+                    <button class="btn btn-default" id="globalSearchBtn">بحث شامل</button>
+                    <button class="btn btn-default" id="exportBtn"><i class="fas fa-file-excel"></i> تصدير البيانات</button>
+                </div>
+            </header>
+            
+            <div class="main-content">
+                <div class="table-container">
+                    <table id="patientsTable">
+                        <thead>
+                            <tr>
+                                <th>رقم السجل</th>
+                                <th>الاسم</th>
+                                <th>الهاتف</th>
+                                <th>النوع</th>
+                                <th>التشخيص/ملاحظات</th>
+                                <th>تاريخ الكشف</th>
+                                <th>المتابعة القادمة</th>
+                                <th>العنوان</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patientsTableBody">
+                            <!-- سيتم ملء البيانات هنا -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="footer-actions">
+                <div class="actions">
+                    <button class="btn btn-primary" id="addPatientBtn"><i class="fas fa-plus"></i> مريض جديد</button>
+                    <button class="btn btn-secondary" id="editPatientBtn"><i class="fas fa-edit"></i> تحرير</button>
+                    <button class="btn btn-danger" id="deletePatientBtn"><i class="fas fa-trash"></i> حذف</button>
+                </div>
+                
+                <div class="stats">
+                    <div class="stat-item" id="totalPatients">عدد المرضى الكلي: 0</div>
+                    <div class="stat-item" id="todayFollowups">عدد المرضى لهم موعد اليوم: 0</div>
+                    <div class="stat-item" id="addedToday">عدد المرضى المضافين اليوم: 0</div>
+                </div>
+                
+                <button class="btn btn-default" id="todayPatientsBtn">مرضى اليوم</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- نموذج إضافة/تحرير مريض -->
+    <div id="patientModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>بيانات المريض</h2>
+            <form id="patientForm">
+                <div class="form-group">
+                    <label for="patientName">الاسم</label>
+                    <input type="text" class="form-control" id="patientName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="patientPhone">الهاتف</label>
+                    <input type="text" class="form-control" id="patientPhone">
+                </div>
+                
+                <div class="form-group">
+                    <label for="patientGender">النوع</label>
+                    <select class="form-control" id="patientGender">
+                        <option value="ذكر">ذكر</option>
+                        <option value="أنثى">أنثى</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="patientDiagnosis">التشخيص/ملاحظات</label>
+                    <textarea class="form-control" id="patientDiagnosis" rows="4"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>تاريخ الكشف</label>
+                    <div class="date-selector">
+                        <button type="button" id="examDatePrev"><i class="fas fa-chevron-right"></i></button>
+                        <div class="date-display" id="examDateDisplay">2023-06-15</div>
+                        <button type="button" id="examDateNext"><i class="fas fa-chevron-left"></i></button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>المتابعة القادمة</label>
+                    <div class="date-selector">
+                        <button type="button" id="followUpDatePrev"><i class="fas fa-chevron-right"></i></button>
+                        <div class="date-display" id="followUpDateDisplay">2023-06-15</div>
+                        <button type="button" id="followUpDateNext"><i class="fas fa-chevron-left"></i></button>
+                        <button type="button" class="btn btn-default" id="noFollowUpBtn">ليس هناك</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="patientAddress">العنوان</label>
+                    <input type="text" class="form-control" id="patientAddress">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">حفظ</button>
+                    <button type="button" class="btn btn-default" id="cancelBtn">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- نافذة مرضى اليوم -->
+    <div id="todayPatientsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>مرضى اليوم</h2>
+            <div class="modal-search-container">
+                <div class="search-container">
+                    <input type="text" class="search-input" id="todaySearchInput" placeholder="بحث...">
+                    <button class="btn btn-default" id="todaySearchBtn">بحث</button>
+                </div>
+            </div>
+            <div class="modal-table-container">
+                <table id="todayPatientsTable">
+                    <thead>
+                        <tr>
+                            <th>رقم السجل</th>
+                            <th>الاسم</th>
+                            <th>الهاتف</th>
+                            <th>النوع</th>
+                            <th>التشخيص/ملاحظات</th>
+                            <th>تاريخ الكشف</th>
+                            <th>المتابعة القادمة</th>
+                            <th>العنوان</th>
+                        </tr>
+                    </thead>
+                    <tbody id="todayPatientsTableBody">
+                        <!-- سيتم ملء البيانات هنا -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- نافذة البحث الشامل -->
+    <div id="globalSearchModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>بحث شامل</h2>
+            <div class="modal-search-container">
+                <div class="search-container">
+                    <input type="text" class="search-input" id="globalSearchInput" placeholder="بحث شامل...">
+                    <button class="btn btn-default" id="globalSearchModalBtn">بحث</button>
+                </div>
+            </div>
+            <div class="modal-table-container">
+                <table id="globalSearchTable">
+                    <thead>
+                        <tr>
+                            <th>رقم السجل</th>
+                            <th>الاسم</th>
+                            <th>الهاتف</th>
+                            <th>النوع</th>
+                            <th>التشخيص/ملاحظات</th>
+                            <th>تاريخ الكشف</th>
+                            <th>المتابعة القادمة</th>
+                            <th>العنوان</th>
+                        </tr>
+                    </thead>
+                    <tbody id="globalSearchTableBody">
+                        <!-- سيتم ملء البيانات هنا -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- إشعارات -->
+    <div id="notification" class="notification"></div>
+    
+    <!-- مؤشر التحميل -->
+    <div id="loading" class="loading">
+        <i class="fas fa-spinner fa-spin"></i> جاري التحميل...
+    </div>
+    
+    <!-- معلومات حول قاعدة البيانات -->
+    <div class="database-info">
+        <h3>معلومات قاعدة البيانات</h3>
+        <p>هذا التطبيق يستخدم Firebase لحفظ البيانات بشكل دائم.</p>
+        <ul>
+            <li>البيانات محفوظة بشكل آمن في السحابة</li>
+            <li>متاحة من أي جهاز</li>
+            <li>تتزامن تلقائياً</li>
+        </ul>
+    </div>
+    
+    <script>
+        // إعداد Firebase - يجب استبدال هذه القيم بإعدادات مشروعك
+        const firebaseConfig = {
+            apiKey: "AIzaSyBqN1yY8X6n6v8w7z9A1B2C3D4E5F6G7H8I9J0",
+            authDomain: "eye-clinic-management.firebaseapp.com",
+            projectId: "eye-clinic-management",
+            storageBucket: "eye-clinic-management.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef123456"
+        };
+
+        // تهيئة Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        // بيانات المرضى (محاكاة)
+        let patients = [];
+        
+        // المتغيرات العامة
+        let currentDate = new Date();
+        let selectedPatientId = null;
+        let examDate = new Date();
+        let followUpDate = new Date();
+        
+        // عناصر DOM
+        const currentDateEl = document.getElementById('currentDate');
+        const patientsTableBody = document.getElementById('patientsTableBody');
+        const totalPatientsEl = document.getElementById('totalPatients');
+        const todayFollowupsEl = document.getElementById('todayFollowups');
+        const addedTodayEl = document.getElementById('addedToday');
+        const searchInput = document.getElementById('searchInput');
+        const patientModal = document.getElementById('patientModal');
+        const todayPatientsModal = document.getElementById('todayPatientsModal');
+        const globalSearchModal = document.getElementById('globalSearchModal');
+        const notification = document.getElementById('notification');
+        const loading = document.getElementById('loading');
+        
+        // عرض مؤشر التحميل
+        function showLoading() {
+            loading.style.display = 'block';
+        }
+        
+        // إخفاء مؤشر التحميل
+        function hideLoading() {
+            loading.style.display = 'none';
+        }
+        
+        // تحميل البيانات من Firebase
+        async function loadPatientsFromFirebase() {
+            showLoading();
+            try {
+                const snapshot = await db.collection('patients').get();
+                patients = [];
+                snapshot.forEach(doc => {
+                    patients.push({ id: doc.id, ...doc.data() });
+                });
+                hideLoading();
+            } catch (error) {
+                console.error('Error loading patients:', error);
+                hideLoading();
+                showNotification('حدث خطأ في تحميل البيانات', 'error');
+            }
+        }
+        
+        // حفظ بيانات المريض في Firebase
+        async function savePatientToFirebase(patientData) {
+            showLoading();
+            try {
+                if (patientData.id) {
+                    // تحديث مريض موجود
+                    await db.collection('patients').doc(patientData.id).update(patientData);
+                } else {
+                    // إضافة مريض جديد
+                    delete patientData.id;
+                    const docRef = await db.collection('patients').add(patientData);
+                    patientData.id = docRef.id;
+                }
+                hideLoading();
+                return patientData;
+            } catch (error) {
+                console.error('Error saving patient:', error);
+                hideLoading();
+                showNotification('حدث خطأ في حفظ البيانات', 'error');
+                return null;
+            }
+        }
+        
+        // حذف مريض من Firebase
+        async function deletePatientFromFirebase(patientId) {
+            showLoading();
+            try {
+                await db.collection('patients').doc(patientId).delete();
+                hideLoading();
+                return true;
+            } catch (error) {
+                console.error('Error deleting patient:', error);
+                hideLoading();
+                showNotification('حدث خطأ في حذف البيانات', 'error');
+                return false;
+            }
+        }
+        
+        // تهيئة التطبيق
+        async function initApp() {
+            // تحميل البيانات من Firebase
+            await loadPatientsFromFirebase();
+            
+            updateCurrentDate();
+            renderPatientsTable();
+            updateStats();
+            
+            // أحداث الأزرار
+            document.getElementById('prevDayBtn').addEventListener('click', () => changeDate(-1)); // السهم الأيمن ينقص التاريخ
+            document.getElementById('nextDayBtn').addEventListener('click', () => changeDate(1));  // السهم الأيسر يزيد التاريخ
+            document.getElementById('todayBtn').addEventListener('click', goToToday);
+            document.getElementById('addPatientBtn').addEventListener('click', openAddPatientModal);
+            document.getElementById('editPatientBtn').addEventListener('click', openEditPatientModal);
+            document.getElementById('deletePatientBtn').addEventListener('click', deleteSelectedPatient);
+            document.getElementById('todayPatientsBtn').addEventListener('click', openTodayPatientsModal);
+            document.getElementById('globalSearchBtn').addEventListener('click', openGlobalSearchModal);
+            document.getElementById('exportBtn').addEventListener('click', exportData);
+            document.getElementById('patientForm').addEventListener('submit', savePatient);
+            document.getElementById('cancelBtn').addEventListener('click', closePatientModal);
+            document.getElementById('noFollowUpBtn').addEventListener('click', setNoFollowUp);
+            
+            // أحداث محددات التاريخ في النموذج
+            document.getElementById('examDatePrev').addEventListener('click', () => changeExamDate(-1));
+            document.getElementById('examDateNext').addEventListener('click', () => changeExamDate(1));
+            document.getElementById('followUpDatePrev').addEventListener('click', () => changeFollowUpDate(-1));
+            document.getElementById('followUpDateNext').addEventListener('click', () => changeFollowUpDate(1));
+            
+            // أحداث البحث
+            searchInput.addEventListener('input', filterPatients);
+            document.getElementById('todaySearchInput').addEventListener('input', filterTodayPatients);
+            document.getElementById('todaySearchBtn').addEventListener('click', filterTodayPatients);
+            document.getElementById('globalSearchInput').addEventListener('input', filterGlobalSearch);
+            document.getElementById('globalSearchModalBtn').addEventListener('click', filterGlobalSearch);
+            
+            // إغلاق النوافذ المنبثقة
+            document.querySelectorAll('.close').forEach(closeBtn => {
+                closeBtn.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+            
+            // إغلاق النافذة عند النقر خارجها
+            window.addEventListener('click', function(event) {
+                if (event.target.classList.contains('modal')) {
+                    event.target.style.display = 'none';
+                }
+            });
+        }
+        
+        // تحديث التاريخ الحالي
+        function updateCurrentDate() {
+            currentDateEl.textContent = formatDate(currentDate);
+        }
+        
+        // تغيير التاريخ
+        function changeDate(days) {
+            currentDate.setDate(currentDate.getDate() + days);
+            updateCurrentDate();
+            renderPatientsTable();
+        }
+        
+        // الذهاب إلى اليوم الحالي
+        function goToToday() {
+            currentDate = new Date();
+            updateCurrentDate();
+            renderPatientsTable();
+        }
+        
+        // تنسيق التاريخ
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+        
+        // عرض جدول المرضى
+        function renderPatientsTable() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredPatients = patients.filter(patient => {
+                const patientDateString = formatDate(currentDate);
+                return patient.examDate === patientDateString && 
+                    (patient.name.toLowerCase().includes(searchTerm) || 
+                     patient.phone.includes(searchTerm) || 
+                     patient.diagnosis.toLowerCase().includes(searchTerm));
+            });
+            
+            patientsTableBody.innerHTML = '';
+            
+            if (filteredPatients.length === 0) {
+                patientsTableBody.innerHTML = '<tr><td colspan="8">لا توجد بيانات لعرضها</td></tr>';
+                return;
+            }
+            
+            filteredPatients.forEach(patient => {
+                const row = document.createElement('tr');
+                row.dataset.id = patient.id;
+                
+                // عكس ترتيب الأعمدة
+                row.innerHTML = `
+                    <td>${patient.id}</td>
+                    <td>${patient.name}</td>
+                    <td>${patient.phone}</td>
+                    <td>${patient.gender}</td>
+                    <td>${patient.diagnosis}</td>
+                    <td>${patient.examDate}</td>
+                    <td>${patient.nextFollowUp}</td>
+                    <td>${patient.address}</td>
+                `;
+                
+                row.addEventListener('click', () => selectPatient(patient.id));
+                row.addEventListener('dblclick', () => openEditPatientModal());
+                
+                patientsTableBody.appendChild(row);
+            });
+        }
+        
+        // تحديث الإحصائيات
+        function updateStats() {
+            const today = formatDate(new Date());
+            
+            // عدد المرضى الكلي
+            totalPatientsEl.textContent = `عدد المرضى الكلي: ${patients.length}`;
+            
+            // عدد المرضى لهم موعد اليوم
+            const todayFollowups = patients.filter(patient => patient.nextFollowUp === today).length;
+            todayFollowupsEl.textContent = `عدد المرضى لهم موعد اليوم: ${todayFollowups}`;
+            
+            // عدد المرضى المضافين اليوم
+            const addedToday = patients.filter(patient => patient.examDate === today).length;
+            addedTodayEl.textContent = `عدد المرضى المضافين اليوم: ${addedToday}`;
+        }
+        
+        // فلترة المرضى حسب البحث
+        function filterPatients() {
+            renderPatientsTable();
+        }
+        
+        // تحديد مريض
+        function selectPatient(patientId) {
+            // إزالة التحديد السابق
+            document.querySelectorAll('#patientsTableBody tr').forEach(row => {
+                row.style.backgroundColor = '';
+            });
+            
+            // تحديد الصف الحالي
+            const selectedRow = document.querySelector(`#patientsTableBody tr[data-id="${patientId}"]`);
+            if (selectedRow) {
+                selectedRow.style.backgroundColor = '#e0f7fa';
+                selectedPatientId = patientId;
+            }
+        }
+        
+        // فتح نافذة إضافة مريض
+        function openAddPatientModal() {
+            selectedPatientId = null;
+            document.getElementById('patientForm').reset();
+            
+            // تعيين التواريخ الافتراضية
+            examDate = new Date();
+            followUpDate = new Date();
+            updateDateDisplays();
+            
+            patientModal.style.display = 'block';
+        }
+        
+        // فتح نافذة تعديل مريض
+        function openEditPatientModal() {
+            if (!selectedPatientId) {
+                showNotification('الرجاء تحديد مريض للتعديل', 'error');
+                return;
+            }
+            
+            const patient = patients.find(p => p.id === selectedPatientId);
+            if (!patient) return;
+            
+            // ملء النموذج ببيانات المريض
+            document.getElementById('patientName').value = patient.name;
+            document.getElementById('patientPhone').value = patient.phone;
+            document.getElementById('patientGender').value = patient.gender;
+            document.getElementById('patientDiagnosis').value = patient.diagnosis;
+            document.getElementById('patientAddress').value = patient.address;
+            
+            // تعيين التواريخ
+            examDate = new Date(patient.examDate);
+            followUpDate = new Date(patient.nextFollowUp);
+            updateDateDisplays();
+            
+            patientModal.style.display = 'block';
+        }
+        
+        // حفظ بيانات المريض
+        async function savePatient(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('patientName').value.trim();
+            if (!name) {
+                showNotification('الاسم مطلوب', 'error');
+                return;
+            }
+            
+            const patientData = {
+                name: name,
+                phone: document.getElementById('patientPhone').value.trim(),
+                gender: document.getElementById('patientGender').value,
+                diagnosis: document.getElementById('patientDiagnosis').value.trim(),
+                examDate: formatDate(examDate),
+                nextFollowUp: followUpDate.getDate().toString() !== 'NaN' ? formatDate(followUpDate) : 'ليس هناك',
+                address: document.getElementById('patientAddress').value.trim()
+            };
+            
+            if (selectedPatientId) {
+                // تعديل مريض موجود
+                patientData.id = selectedPatientId;
+                const savedPatient = await savePatientToFirebase(patientData);
+                if (savedPatient) {
+                    const index = patients.findIndex(p => p.id === selectedPatientId);
+                    if (index !== -1) {
+                        patients[index] = savedPatient;
+                        showNotification('تم تحديث بيانات المريض بنجاح', 'success');
+                    }
+                }
+            } else {
+                // إضافة مريض جديد
+                const savedPatient = await savePatientToFirebase(patientData);
+                if (savedPatient) {
+                    patients.push(savedPatient);
+                    showNotification('تم إضافة المريض بنجاح', 'success');
+                }
+            }
+            
+            closePatientModal();
+            renderPatientsTable();
+            updateStats();
+        }
+        
+        // حذف المريض المحدد
+        async function deleteSelectedPatient() {
+            if (!selectedPatientId) {
+                showNotification('الرجاء تحديد مريض للحذف', 'error');
+                return;
+            }
+            
+            if (confirm('هل تريد حذف المريض؟')) {
+                const success = await deletePatientFromFirebase(selectedPatientId);
+                if (success) {
+                    patients = patients.filter(p => p.id !== selectedPatientId);
+                    selectedPatientId = null;
+                    renderPatientsTable();
+                    updateStats();
+                    showNotification('تم حذف المريض بنجاح', 'success');
+                }
+            }
+        }
+        
+        // إغلاق نافذة المريض
+        function closePatientModal() {
+            patientModal.style.display = 'none';
+        }
+        
+        // فتح نافذة مرضى اليوم
+        function openTodayPatientsModal() {
+            const today = formatDate(new Date());
+            const todayPatients = patients.filter(patient => patient.nextFollowUp === today);
+            
+            renderTodayPatientsTable(todayPatients);
+            todayPatientsModal.style.display = 'block';
+        }
+        
+        // عرض جدول مرضى اليوم
+        function renderTodayPatientsTable(patientsToShow) {
+            const tableBody = document.getElementById('todayPatientsTableBody');
+            tableBody.innerHTML = '';
+            
+            if (patientsToShow.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="8">لا توجد بيانات لعرضها</td></tr>';
+                return;
+            }
+            
+            patientsToShow.forEach(patient => {
+                const row = document.createElement('tr');
+                row.dataset.id = patient.id;
+                
+                // عكس ترتيب الأعمدة
+                row.innerHTML = `
+                    <td>${patient.id}</td>
+                    <td>${patient.name}</td>
+                    <td>${patient.phone}</td>
+                    <td>${patient.gender}</td>
+                    <td>${patient.diagnosis}</td>
+                    <td>${patient.examDate}</td>
+                    <td>${patient.nextFollowUp}</td>
+                    <td>${patient.address}</td>
+                `;
+                
+                row.addEventListener('dblclick', () => {
+                    selectedPatientId = patient.id;
+                    closeAllModals();
+                    openEditPatientModal();
+                });
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // فلترة مرضى اليوم
+        function filterTodayPatients() {
+            const searchTerm = document.getElementById('todaySearchInput').value.toLowerCase();
+            const today = formatDate(new Date());
+            const todayPatients = patients.filter(patient => 
+                patient.nextFollowUp === today && 
+                (patient.name.toLowerCase().includes(searchTerm) || 
+                 patient.phone.includes(searchTerm) || 
+                 patient.diagnosis.toLowerCase().includes(searchTerm))
+            );
+            
+            renderTodayPatientsTable(todayPatients);
+        }
+        
+        // فتح نافذة البحث الشامل
+        function openGlobalSearchModal() {
+            renderGlobalSearchTable(patients);
+            globalSearchModal.style.display = 'block';
+        }
+        
+        // عرض جدول البحث الشامل
+        function renderGlobalSearchTable(patientsToShow) {
+            const tableBody = document.getElementById('globalSearchTableBody');
+            tableBody.innerHTML = '';
+            
+            if (patientsToShow.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="8">لا توجد بيانات لعرضها</td></tr>';
+                return;
+            }
+            
+            patientsToShow.forEach(patient => {
+                const row = document.createElement('tr');
+                row.dataset.id = patient.id;
+                
+                // عكس ترتيب الأعمدة
+                row.innerHTML = `
+                    <td>${patient.id}</td>
+                    <td>${patient.name}</td>
+                    <td>${patient.phone}</td>
+                    <td>${patient.gender}</td>
+                    <td>${patient.diagnosis}</td>
+                    <td>${patient.examDate}</td>
+                    <td>${patient.nextFollowUp}</td>
+                    <td>${patient.address}</td>
+                `;
+                
+                row.addEventListener('dblclick', () => {
+                    selectedPatientId = patient.id;
+                    closeAllModals();
+                    openEditPatientModal();
+                });
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // فلترة البحث الشامل
+        function filterGlobalSearch() {
+            const searchTerm = document.getElementById('globalSearchInput').value.toLowerCase();
+            const filteredPatients = patients.filter(patient => 
+                patient.name.toLowerCase().includes(searchTerm) || 
+                patient.phone.includes(searchTerm) || 
+                patient.diagnosis.toLowerCase().includes(searchTerm) ||
+                patient.address.toLowerCase().includes(searchTerm)
+            );
+            
+            renderGlobalSearchTable(filteredPatients);
+        }
+        
+        // تصدير البيانات إلى ملف Excel
+        function exportData() {
+            // إنشاء ورقة عمل جديدة
+            const wb = XLSX.utils.book_new();
+            
+            // تحويل بيانات المرضى إلى ورقة عمل
+            const ws = XLSX.utils.json_to_sheet(patients.map(patient => ({
+                "رقم السجل": patient.id,
+                "الاسم": patient.name,
+                "الهاتف": patient.phone,
+                "النوع": patient.gender,
+                "التشخيص/ملاحظات": patient.diagnosis,
+                "تاريخ الكشف": patient.examDate,
+                "المتابعة القادمة": patient.nextFollowUp,
+                "العنوان": patient.address
+            })));
+            
+            // إضافة ورقة العمل إلى المصنف
+            XLSX.utils.book_append_sheet(wb, ws, "المرضى");
+            
+            // إنشاء ملف Excel وتنزيله
+            const today = new Date();
+            const fileName = `بيانات_المرضى_${formatDate(today)}.xlsx`;
+            XLSX.writeFile(wb, fileName);
+            
+            showNotification('تم تصدير البيانات بنجاح', 'success');
+        }
+        
+        // تغيير تاريخ الكشف
+        function changeExamDate(days) {
+            examDate.setDate(examDate.getDate() + days);
+            updateDateDisplays();
+        }
+        
+        // تغيير تاريخ المتابعة
+        function changeFollowUpDate(days) {
+            followUpDate.setDate(followUpDate.getDate() + days);
+            updateDateDisplays();
+        }
+        
+        // تحديث عرض التواريخ
+        function updateDateDisplays() {
+            document.getElementById('examDateDisplay').textContent = formatDate(examDate);
+            document.getElementById('followUpDateDisplay').textContent = followUpDate.getDate().toString() !== 'NaN' ? formatDate(followUpDate) : 'ليس هناك';
+        }
+        
+        // تعيين "ليس هناك" للمتابعة القادمة
+        function setNoFollowUp() {
+            followUpDate = new Date('Invalid Date');
+            updateDateDisplays();
+        }
+        
+        // إغلاق جميع النوافذ المنبثقة
+        function closeAllModals() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+        }
+        
+        // عرض إشعار
+        function showNotification(message, type = 'success') {
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        // بدء التطبيق
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
