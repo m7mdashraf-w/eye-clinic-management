@@ -1239,6 +1239,10 @@
         
         // تغيير تاريخ المتابعة
         function changeFollowUpDate(days) {
+            // لو التاريخ الحالي غير صالح، نبدأ من اليوم
+            if (isNaN(followUpDate.getTime())) {
+                followUpDate = new Date();
+            }
             followUpDate.setDate(followUpDate.getDate() + days);
             updateDateDisplays();
         }
