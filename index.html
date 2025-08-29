@@ -38,7 +38,7 @@
         html, body {
             height: 100%;
             overflow: hidden;
-            background-color: #f5f5f5;
+            background-color: #000000;
             direction: rtl;
         }
 
@@ -47,6 +47,7 @@
             flex-direction: column;
             height: 100vh;
             width: 100vw;
+            color: #000000;            
         }
 
         .container {
@@ -57,6 +58,7 @@
             flex-direction: column;
             height: 100%;
             overflow: hidden;
+            
         }
 
         header {
@@ -197,6 +199,7 @@
         .table-container {
             overflow: auto;
             flex-grow: 1;
+            
         }
 
         table {
@@ -489,9 +492,9 @@
             <header>
                 <div class="date-navigation">
                     <button class="btn btn-danger" onclick="logout()">خروج</button>
-                    <button class="date-btn" id="prevDayBtn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="date-btn" id="prevDayBtn"><i class="fas fa-chevron-right"></i></button>
                     <div class="current-date" id="currentDate">2023-06-15</div>
-                    <button class="date-btn" id="nextDayBtn"><i class="fas fa-chevron-right"></i></button>
+                    <button class="date-btn" id="nextDayBtn"><i class="fas fa-chevron-left"></i></button>
                     <button class="date-btn" id="todayBtn">اليوم</button>
                 </div>
                 
@@ -574,18 +577,18 @@
                 <div class="form-group">
                     <label>تاريخ الكشف</label>
                     <div class="date-selector">
-                        <button type="button" id="examDatePrev"><i class="fas fa-chevron-left"></i></button>
+                        <button type="button" id="examDatePrev"><i class="fas fa-chevron-right"></i></button>
                         <div class="date-display" id="examDateDisplay">2023-06-15</div>
-                        <button type="button" id="examDateNext"><i class="fas fa-chevron-right"></i></button>
+                        <button type="button" id="examDateNext"><i class="fas fa-chevron-left"></i></button>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label>المتابعة القادمة</label>
                     <div class="date-selector">
-                        <button type="button" id="followUpDatePrev"><i class="fas fa-chevron-left"></i></button>
+                        <button type="button" id="followUpDatePrev"><i class="fas fa-chevron-right"></i></button>
                         <div class="date-display" id="followUpDateDisplay">2023-06-15</div>
-                        <button type="button" id="followUpDateNext"><i class="fas fa-chevron-right"></i></button>
+                        <button type="button" id="followUpDateNext"><i class="fas fa-chevron-left"></i></button>
                         <button type="button" class="btn btn-default" id="noFollowUpBtn">ليس هناك</button>
                     </div>
                 </div>
@@ -888,28 +891,20 @@
         }
         
         // عرض جدول المرضى
-        function renderPatientsTable() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const filteredPatients = patients.filter(patient => {
-                const patientDateString = formatDate(currentDate);
-                return patient.examDate === patientDateString && 
-                    (patient.name.toLowerCase().includes(searchTerm) || 
-                     patient.phone.includes(searchTerm) || 
-                     patient.diagnosis.toLowerCase().includes(searchTerm));
-            });
-            
-            patientsTableBody.innerHTML = '';
-            
-            if (filteredPatients.length === 0) {
-                patientsTableBody.innerHTML = '<tr><td colspan="8">لا توجد بيانات لعرضها</td></tr>';
+        function renderPatientsTable(patientsToShow = null) {
+            const tableBody = patientsTableBody;
+            tableBody.innerHTML = '';
+    
+            const data = patientsToShow || patients.filter(p => p.examDate === formatDate(currentDate));
+
+            if (data.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="8">لا توجد بيانات لعرضها</td></tr>';
                 return;
             }
-            
-            filteredPatients.forEach(patient => {
+
+            data.forEach(patient => {
                 const row = document.createElement('tr');
                 row.dataset.id = patient.id;
-                
-                // عكس ترتيب الأعمدة مع تمييز رقم السجل
                 row.innerHTML = `
                     <td><span class="patient-id">${patient.id}</span></td>
                     <td>${patient.name}</td>
@@ -920,13 +915,12 @@
                     <td>${patient.nextFollowUp}</td>
                     <td>${patient.address}</td>
                 `;
-                
                 row.addEventListener('click', () => selectPatient(patient.id));
                 row.addEventListener('dblclick', () => openEditPatientModal());
-                
-                patientsTableBody.appendChild(row);
+                tableBody.appendChild(row);
             });
         }
+
         
         // تحديث الإحصائيات
         function updateStats() {
@@ -946,7 +940,22 @@
         
         // فلترة المرضى حسب البحث
         function filterPatients() {
-            renderPatientsTable();
+            const searchTerm = searchInput.value.toLowerCase();
+            const currentDateStr = formatDate(currentDate);
+
+            const filteredPatients = patients.filter(patient => 
+                patient.examDate === currentDateStr && (
+                    patient.id.toLowerCase().includes(searchTerm) ||
+                    patient.name.toLowerCase().includes(searchTerm) ||
+                    patient.phone.toLowerCase().includes(searchTerm) ||
+                    patient.gender.toLowerCase().includes(searchTerm) ||
+                    patient.diagnosis.toLowerCase().includes(searchTerm) ||
+                    patient.nextFollowUp.toLowerCase().includes(searchTerm) ||
+                    patient.address.toLowerCase().includes(searchTerm)
+                )
+            );
+
+            renderPatientsTable(filteredPatients);
         }
         
         // تحديد مريض
@@ -1117,14 +1126,20 @@
         function filterTodayPatients() {
             const searchTerm = document.getElementById('todaySearchInput').value.toLowerCase();
             const today = formatDate(new Date());
-            const todayPatients = patients.filter(patient => 
-                patient.nextFollowUp === today && 
-                (patient.name.toLowerCase().includes(searchTerm) || 
-                 patient.phone.includes(searchTerm) || 
-                 patient.diagnosis.toLowerCase().includes(searchTerm))
+
+            const filteredPatients = patients.filter(patient => 
+                patient.nextFollowUp === today && (
+                    patient.id.toLowerCase().includes(searchTerm) ||
+                    patient.name.toLowerCase().includes(searchTerm) ||
+                    patient.phone.toLowerCase().includes(searchTerm) ||
+                    patient.gender.toLowerCase().includes(searchTerm) ||
+                    patient.diagnosis.toLowerCase().includes(searchTerm) ||
+                    patient.examDate.toLowerCase().includes(searchTerm) ||
+                    patient.address.toLowerCase().includes(searchTerm)
+                )
             );
-            
-            renderTodayPatientsTable(todayPatients);
+
+            renderTodayPatientsTable(filteredPatients);
         }
         
         // فتح نافذة البحث الشامل
@@ -1172,15 +1187,21 @@
         // فلترة البحث الشامل
         function filterGlobalSearch() {
             const searchTerm = document.getElementById('globalSearchInput').value.toLowerCase();
+
             const filteredPatients = patients.filter(patient => 
-                patient.name.toLowerCase().includes(searchTerm) || 
-                patient.phone.includes(searchTerm) || 
+                patient.id.toLowerCase().includes(searchTerm) ||
+                patient.name.toLowerCase().includes(searchTerm) ||
+                patient.phone.toLowerCase().includes(searchTerm) ||
+                patient.gender.toLowerCase().includes(searchTerm) ||
                 patient.diagnosis.toLowerCase().includes(searchTerm) ||
+                patient.examDate.toLowerCase().includes(searchTerm) ||
+                patient.nextFollowUp.toLowerCase().includes(searchTerm) ||
                 patient.address.toLowerCase().includes(searchTerm)
             );
-            
+
             renderGlobalSearchTable(filteredPatients);
         }
+
         
         // تصدير البيانات إلى ملف Excel
         function exportData() {
