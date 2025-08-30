@@ -27,21 +27,18 @@
             --dark-hover: #303f9f;
             --dark-text: #e8eaf6;
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
         html, body {
             height: 100%;
             overflow: hidden;
             background-color: #000000;
             direction: rtl;
         }
-
         .app-container {
             display: flex;
             flex-direction: column;
@@ -49,7 +46,6 @@
             width: 100vw;
             color: #000000;            
         }
-
         .container {
             max-width: 100%;
             margin: 0;
@@ -58,9 +54,7 @@
             flex-direction: column;
             height: 100%;
             overflow: hidden;
-            
         }
-
         header {
             background-color: var(--dark-header);
             box-shadow: var(--box-shadow);
@@ -72,13 +66,11 @@
             z-index: 10;
             border-bottom: 3px solid var(--dark-accent);
         }
-
         .date-navigation {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .date-btn {
             background-color: var(--dark-accent);
             color: var(--dark-text);
@@ -90,12 +82,10 @@
             transition: all 0.3s ease;
             font-size: 20px;
         }
-
         .date-btn:hover {
             background-color: var(--dark-hover);
             transform: translateY(-2px);
         }
-
         .current-date {
             font-size: 32px;
             font-weight: bold;
@@ -108,13 +98,11 @@
             text-align: center;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
-
         .search-container {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .search-input {
             padding: 15px 20px;
             border: 2px solid var(--dark-accent);
@@ -124,13 +112,11 @@
             background-color: rgba(255, 255, 255, 0.9);
             transition: all 0.3s ease;
         }
-
         .search-input:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(51, 181, 103, 0.3);
         }
-
         .btn {
             padding: 15px 25px;
             border: none;
@@ -144,47 +130,38 @@
             font-size: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
         .btn-primary {
             background-color: var(--primary-color);
             color: var(--white);
         }
-
         .btn-primary:hover {
             background-color: #2a9349;
             transform: translateY(-2px);
         }
-
         .btn-secondary {
             background-color: var(--secondary-color);
             color: var(--white);
         }
-
         .btn-secondary:hover {
             background-color: #2c4b8c;
             transform: translateY(-2px);
         }
-
         .btn-danger {
             background-color: var(--danger-color);
             color: var(--white);
         }
-
         .btn-danger:hover {
             background-color: #901c1c;
             transform: translateY(-2px);
         }
-
         .btn-default {
             background-color: var(--dark-accent);
             color: var(--dark-text);
         }
-
         .btn-default:hover {
             background-color: var(--dark-hover);
             transform: translateY(-2px);
         }
-
         .main-content {
             background-color: var(--white);
             box-shadow: var(--box-shadow);
@@ -195,24 +172,19 @@
             margin: 10px;
             border-radius: var(--border-radius);
         }
-
         .table-container {
             overflow: auto;
             flex-grow: 1;
-            
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
         }
-
         th, td {
             padding: 18px;
             text-align: center;
             border-bottom: 1px solid #e0e0e0;
         }
-
         th {
             background: linear-gradient(to bottom, var(--dark-header), var(--dark-footer));
             color: var(--dark-text);
@@ -224,30 +196,24 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
             letter-spacing: 1px;
         }
-
         td {
             font-size: 20px;
             transition: background-color 0.3s ease;
         }
-
         tr:hover {
             background-color: #f0f7ff;
         }
-
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-
         tr:nth-child(even):hover {
             background-color: #e8f4ff;
         }
-
         .actions {
             display: flex;
             justify-content: center;
             gap: 15px;
         }
-
         .footer-actions {
             background: linear-gradient(to bottom, var(--dark-footer), var(--dark-header));
             box-shadow: var(--box-shadow);
@@ -259,20 +225,17 @@
             z-index: 10;
             border-top: 3px solid var(--dark-accent);
         }
-
         .stats {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
-
         .stat-item {
             font-size: 22px;
             font-weight: bold;
             color: var(--dark-text);
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
-
         .modal {
             display: none;
             position: fixed;
@@ -284,7 +247,6 @@
             z-index: 1000;
             overflow: auto;
         }
-
         .modal-content {
             background-color: var(--white);
             margin: 5% auto;
@@ -295,7 +257,6 @@
             position: relative;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-
         .close {
             position: absolute;
             top: 15px;
@@ -306,15 +267,12 @@
             color: var(--dark-header);
             transition: color 0.3s ease;
         }
-
         .close:hover {
             color: var(--danger-color);
         }
-
         .form-group {
             margin-bottom: 25px;
         }
-
         .form-group label {
             display: block;
             margin-bottom: 10px;
@@ -322,7 +280,6 @@
             font-size: 20px;
             color: var(--dark-header);
         }
-
         .form-control {
             width: 100%;
             padding: 15px;
@@ -331,19 +288,16 @@
             font-size: 18px;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-
         .form-control:focus {
             outline: none;
             border-color: var(--secondary-color);
             box-shadow: 0 0 0 3px rgba(52, 97, 165, 0.3);
         }
-
         .date-selector {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .date-selector button {
             background-color: var(--dark-accent);
             color: var(--dark-text);
@@ -354,11 +308,9 @@
             font-size: 18px;
             transition: background-color 0.3s ease;
         }
-
         .date-selector button:hover {
             background-color: var(--dark-hover);
         }
-
         .date-display {
             padding: 12px 20px;
             border: 2px solid var(--dark-accent);
@@ -369,14 +321,12 @@
             font-size: 18px;
             background-color: #f8f9fa;
         }
-
         .form-actions {
             display: flex;
             justify-content: center;
             gap: 25px;
             margin-top: 35px;
         }
-
         .notification {
             position: fixed;
             top: 20px;
@@ -393,30 +343,24 @@
             opacity: 0;
             transition: all 0.3s ease;
         }
-
         .notification.show {
             transform: translateY(0);
             opacity: 1;
         }
-
         .notification.error {
             background-color: var(--danger-color);
         }
-
         .notification.success {
             background-color: var(--primary-color);
         }
-
         .modal-table-container {
             max-height: 60vh;
             overflow: auto;
             margin-top: 25px;
         }
-
         .modal-search-container {
             margin-bottom: 25px;
         }
-
         .loading {
             position: fixed;
             top: 50%;
@@ -430,7 +374,6 @@
             display: none;
             font-size: 20px;
         }
-
         /* إضافة نمط لعرض رقم السجل بشكل مميز */
         .patient-id {
             font-weight: bold;
@@ -438,7 +381,73 @@
             font-family: 'Courier New', monospace;
             letter-spacing: 1px;
         }
-
+        /* إضافة نمط خاص لقائمة الأدوية */
+        .medications-list {
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            padding: 5px;
+            background-color: #f8f9fa;
+            height: 220px;
+            overflow-y: auto;
+        }
+        .medication-item {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .medication-item:hover {
+            background-color: #e9ecef;
+        }
+        .medication-item.selected {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+        }
+        /* وضع التحرير */
+        .edit-mode .medication-item {
+            cursor: move;
+            position: relative;
+        }
+        .edit-mode .medication-item::after {
+            content: "≡";
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--default-color);
+            font-weight: bold;
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+        }
+        .edit-mode .medication-item.add-medication {
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            text-align: center;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .edit-mode .medication-item.add-medication:hover {
+            background-color: #2a9349;
+        }
+        
+        /* جعل حقل الملاحظات بنفس ارتفاع حقل العنوان */
+        #patientDiagnosis {
+            height: 45px !important;
+            padding: 10px 15px !important;
+        }
+        
+        /* إضافة مؤشر لعدد الأدوية المختارة */
+        #medicationsCount {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        
         @media (max-width: 768px) {
             .btn {
                 font-size: 18px;
@@ -458,35 +467,33 @@
                 flex-direction: column;
                 gap: 20px;
             }
-            
             .search-input {
                 width: 100%;
                 font-size: 18px;
             }
-            
             .actions {
                 flex-direction: column;
             }
-            
             th, td {
                 padding: 12px;
                 font-size: 16px;
             }
-            
             th {
                 font-size: 18px;
             }
-            
             .modal-content {
                 width: 95%;
                 margin: 10% auto;
                 padding: 20px;
             }
+            /* تحسين عرض القائمة على الهواتف */
+            .medications-list {
+                height: 180px !important;
+            }
         }
     </style>
 </head>
 <body>
-    
     <div class="app-container">
         <div class="container">
             <header>
@@ -497,14 +504,12 @@
                     <button class="date-btn" id="nextDayBtn"><i class="fas fa-chevron-left"></i></button>
                     <button class="date-btn" id="todayBtn">اليوم</button>
                 </div>
-                
                 <div class="search-container">
                     <input type="text" class="search-input" id="searchInput" placeholder="بحث...">
                     <button class="btn btn-default" id="globalSearchBtn">بحث شامل</button>
                     <button class="btn btn-default" id="exportBtn"><i class="fas fa-file-excel"></i> تصدير البيانات</button>
                 </div>
             </header>
-            
             <div class="main-content">
                 <div class="table-container">
                     <table id="patientsTable">
@@ -514,6 +519,7 @@
                                 <th>الاسم</th>
                                 <th>الهاتف</th>
                                 <th>النوع</th>
+                                <th>الأدوية</th>
                                 <th>التشخيص/ملاحظات</th>
                                 <th>تاريخ الكشف</th>
                                 <th>المتابعة القادمة</th>
@@ -526,25 +532,21 @@
                     </table>
                 </div>
             </div>
-            
             <div class="footer-actions">
                 <div class="actions">
                     <button class="btn btn-primary" id="addPatientBtn"><i class="fas fa-plus"></i> مريض جديد</button>
                     <button class="btn btn-secondary" id="editPatientBtn"><i class="fas fa-edit"></i> تحرير</button>
                     <button class="btn btn-danger" id="deletePatientBtn"><i class="fas fa-trash"></i> حذف</button>
                 </div>
-                
                 <div class="stats">
                     <div class="stat-item" id="totalPatients">عدد المرضى الكلي: 0</div>
                     <div class="stat-item" id="todayFollowups">عدد المرضى لهم موعد اليوم: 0</div>
                     <div class="stat-item" id="addedToday">عدد المرضى المضافين اليوم: 0</div>
                 </div>
-                
                 <button class="btn btn-default" id="todayPatientsBtn">مرضى اليوم</button>
             </div>
         </div>
     </div>
-    
     <!-- نموذج إضافة/تحرير مريض -->
     <div id="patientModal" class="modal">
         <div class="modal-content">
@@ -555,12 +557,10 @@
                     <label for="patientName">الاسم</label>
                     <input type="text" class="form-control" id="patientName" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="patientPhone">الهاتف</label>
                     <input type="text" class="form-control" id="patientPhone">
                 </div>
-                
                 <div class="form-group">
                     <label for="patientGender">النوع</label>
                     <select class="form-control" id="patientGender">
@@ -568,12 +568,23 @@
                         <option value="أنثى">أنثى</option>
                     </select>
                 </div>
-                
+                <!-- قائمة الأدوية المضافة -->
+                <div class="form-group">
+                    <label for="patientMedications">الأدوية</label>
+                    <div class="medications-list" id="medicationsList">
+                        <!-- سيتم ملء الأدوية هنا -->
+                    </div>
+                    <small class="form-text text-muted">اضغط على الدواء لاختياره أو إلغاء اختياره</small>
+                    <div id="medicationsCountContainer" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                        <div id="medicationsCount">عدد الأدوية المختارة: 0</div>
+                        <button type="button" class="btn btn-default" id="toggleEditModeBtn" style="padding: 5px 15px; font-size: 16px;">تعديل</button>
+                    </div>
+                </div>
+                <!-- تم تغيير حقل الملاحظات ليكون بنفس ارتفاع حقل العنوان -->
                 <div class="form-group">
                     <label for="patientDiagnosis">التشخيص/ملاحظات</label>
-                    <textarea class="form-control" id="patientDiagnosis" rows="4"></textarea>
+                    <input type="text" class="form-control" id="patientDiagnosis">
                 </div>
-                
                 <div class="form-group">
                     <label>تاريخ الكشف</label>
                     <div class="date-selector">
@@ -582,7 +593,6 @@
                         <button type="button" id="examDateNext"><i class="fas fa-chevron-left"></i></button>
                     </div>
                 </div>
-                
                 <div class="form-group">
                     <label>المتابعة القادمة</label>
                     <div class="date-selector">
@@ -592,12 +602,10 @@
                         <button type="button" class="btn btn-default" id="noFollowUpBtn">ليس هناك</button>
                     </div>
                 </div>
-                
                 <div class="form-group">
                     <label for="patientAddress">العنوان</label>
                     <input type="text" class="form-control" id="patientAddress">
                 </div>
-                
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">حفظ</button>
                     <button type="button" class="btn btn-default" id="cancelBtn">إلغاء</button>
@@ -605,7 +613,6 @@
             </form>
         </div>
     </div>
-    
     <!-- نافذة مرضى اليوم -->
     <div id="todayPatientsModal" class="modal">
         <div class="modal-content">
@@ -625,6 +632,7 @@
                             <th>الاسم</th>
                             <th>الهاتف</th>
                             <th>النوع</th>
+                            <th>الأدوية</th>
                             <th>التشخيص/ملاحظات</th>
                             <th>تاريخ الكشف</th>
                             <th>المتابعة القادمة</th>
@@ -638,7 +646,6 @@
             </div>
         </div>
     </div>
-    
     <!-- نافذة البحث الشامل -->
     <div id="globalSearchModal" class="modal">
         <div class="modal-content">
@@ -658,6 +665,7 @@
                             <th>الاسم</th>
                             <th>الهاتف</th>
                             <th>النوع</th>
+                            <th>الأدوية</th>
                             <th>التشخيص/ملاحظات</th>
                             <th>تاريخ الكشف</th>
                             <th>المتابعة القادمة</th>
@@ -671,16 +679,35 @@
             </div>
         </div>
     </div>
-    
     <!-- إشعارات -->
     <div id="notification" class="notification"></div>
-    
     <!-- مؤشر التحميل -->
     <div id="loading" class="loading">
         <i class="fas fa-spinner fa-spin"></i> جاري التحميل...
     </div>
-    
     <script>
+        // قائمة الأدوية الشائعة لعيادة العيون
+        let eyeMedications = [
+            "دموع صناعية (Systane)",
+            "دموع صناعية (Refresh)",
+            "Xalatan (لعلاج الجلوكوما)",
+            "Timolol (لعلاج الجلوكوما)",
+            "Prednisolone (مضاد التهاب)",
+            "Dexamethasone (مضاد التهاب)",
+            "Chloramphenicol (مضاد بكتيريا)",
+            "Ofloxacin (مضاد بكتيريا)",
+            "Olopatadine (لعلاج الحساسية)",
+            "Ketotifen (لعلاج الحساسية)",
+            "Pilocarpine (لتضيق الحدقة)",
+            "Moxifloxacin (بعد الجراحة)",
+            "Bromday (بعد الجراحة)",
+            "Atropine (توسيع الحدقة)",
+            "Cyclopentolate (توسيع الحدقة)"
+        ];
+        
+        // متغير لتتبع وضع التحرير
+        let editMode = false;
+        
         // إعداد Firebase - يجب استبدال هذه القيم بإعدادات مشروعك
         const firebaseConfig = {
             apiKey: "AIzaSyAxrMeMIXA6PccgbhoTLzDtyZmlryntvzE",
@@ -691,7 +718,6 @@
             appId: "1:29798010037:web:ea9437ca4055a2c52b42fc",
             measurementId: "G-98YSVKCJ5W"
         };
-
         // تهيئة Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
@@ -704,17 +730,14 @@
             localStorage.removeItem('currentUser');
             window.location.href = "login.html";
         }
-
-
         // بيانات المرضى (محاكاة)
         let patients = [];
-        
         // المتغيرات العامة
         let currentDate = new Date();
         let selectedPatientId = null;
         let examDate = new Date();
         let followUpDate = new Date();
-        
+        let selectedMedications = []; // لتخزين الأدوية المختارة
         // عناصر DOM
         const currentDateEl = document.getElementById('currentDate');
         const patientsTableBody = document.getElementById('patientsTableBody');
@@ -741,31 +764,28 @@
         // دالة لتوليد رقم سجل جديد مكون من 5 خانات
         // توليد رقم سجل جديد من 5 خانات
         function generateNextPatientId() {
-        // ناخد المستندات ذات الـ id الرقمي فقط
+            // ناخد المستندات ذات الـ id الرقمي فقط
             const numericIds = patients
                 .map(p => p.id)
                 .filter(id => /^\d+$/.test(id))
                 .map(id => parseInt(id, 10));
-
             const maxId = numericIds.length ? Math.max(...numericIds) : 0;
             const nextId = maxId + 1;
-    
             return String(nextId).padStart(5, '0');
-            }
-
+        }
         
         // تحميل البيانات من Firebase
         async function loadPatientsFromFirebase() {
             showLoading();
             // onSnapshot = مزامنة فورية مع أي تغيير
-                return db.collection('patients').onSnapshot(
-                    (snapshot) => {
+            return db.collection('patients').onSnapshot(
+                (snapshot) => {
                     patients = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                     renderPatientsTable();
                     updateStats();
                     hideLoading();
-                    },
-                    (error) => {
+                },
+                (error) => {
                     console.error('Error loading patients:', error);
                     hideLoading();
                     showNotification('حدث خطأ في تحميل البيانات', 'error');
@@ -774,28 +794,26 @@
         }
         
         // حفظ بيانات المريض في Firebase
-        // حفظ بيانات المريض في Firebase
         async function savePatientToFirebase(patientData) {
-        showLoading();
-        try {
-            if (patientData.id) {
-                // إضافة/تعديل بنفس رقم السجل (ينشئ المستند لو مش موجود)
-                await db.collection('patients').doc(patientData.id).set(patientData, { merge: true });
-            } else {
-                // في حالة قديمة لو استخدمت إضافة بلا رقم
-                const docRef = await db.collection('patients').add(patientData);
-                patientData.id = docRef.id;
+            showLoading();
+            try {
+                if (patientData.id) {
+                    // إضافة/تعديل بنفس رقم السجل (ينشئ المستند لو مش موجود)
+                    await db.collection('patients').doc(patientData.id).set(patientData, { merge: true });
+                } else {
+                    // في حالة قديمة لو استخدمت إضافة بلا رقم
+                    const docRef = await db.collection('patients').add(patientData);
+                    patientData.id = docRef.id;
+                }
+                hideLoading();
+                return patientData;
+            } catch (error) {
+                console.error('Error saving patient:', error);
+                hideLoading();
+                showNotification('حدث خطأ في حفظ البيانات', 'error');
+                return null;
             }
-            hideLoading();
-            return patientData;
-        } catch (error) {
-            console.error('Error saving patient:', error);
-            hideLoading();
-            showNotification('حدث خطأ في حفظ البيانات', 'error');
-            return null;
         }
-    }
-
         
         // حذف مريض من Firebase
         async function deletePatientFromFirebase(patientId) {
@@ -812,14 +830,264 @@
             }
         }
         
+        // تهيئة قائمة الأدوية
+        function initMedicationsList() {
+            const medicationsList = document.getElementById('medicationsList');
+            if (!medicationsList) return;
+            
+            medicationsList.innerHTML = '';
+            
+            eyeMedications.forEach(medication => {
+                const item = document.createElement('div');
+                item.className = 'medication-item';
+                item.textContent = medication;
+                
+                // إضافة حدث النقر
+                item.addEventListener('click', function() {
+                    if (!editMode) {
+                        this.classList.toggle('selected');
+                        
+                        // تحديث المصفوفة المختارة
+                        const index = selectedMedications.indexOf(medication);
+                        if (index > -1) {
+                            // إزالة الدواء إذا كان موجودًا
+                            selectedMedications.splice(index, 1);
+                        } else {
+                            // إضافة الدواء إذا لم يكن موجودًا
+                            selectedMedications.push(medication);
+                        }
+                        
+                        // تحديث العدد
+                        updateMedicationsCount();
+                    }
+                });
+                
+                medicationsList.appendChild(item);
+            });
+            
+            // إضافة دالة لعرض عدد الأدوية المختارة
+            updateMedicationsCount();
+            
+            // تفعيل سحب وإفلات إذا كان وضع التحرير مفعل
+            if (editMode) {
+                initDragAndDrop();
+            }
+        }
+        
+        // تفعيل سحب وإفلات الأدوية
+        function initDragAndDrop() {
+            const medicationsList = document.getElementById('medicationsList');
+            if (!medicationsList) return;
+            
+            const items = medicationsList.querySelectorAll('.medication-item:not(.add-medication)');
+            
+            items.forEach(item => {
+                item.setAttribute('draggable', true);
+                
+                item.addEventListener('dragstart', function(e) {
+                    e.dataTransfer.setData('text/plain', this.textContent);
+                    this.classList.add('dragging');
+                });
+                
+                item.addEventListener('dragend', function() {
+                    this.classList.remove('dragging');
+                });
+            });
+            
+            medicationsList.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                const dragging = medicationsList.querySelector('.dragging');
+                const afterElement = getDragAfterElement(medicationsList, e.clientY);
+                
+                if (afterElement == null) {
+                    medicationsList.appendChild(dragging);
+                } else {
+                    medicationsList.insertBefore(dragging, afterElement);
+                }
+            });
+            
+            // إضافة زر الإضافة إذا لم يكن موجودًا
+            let addItem = medicationsList.querySelector('.add-medication');
+            if (!addItem) {
+                addItem = document.createElement('div');
+                addItem.className = 'medication-item add-medication';
+                addItem.textContent = '+ إضافة دواء جديد';
+                addItem.addEventListener('click', openAddMedicationModal);
+                medicationsList.appendChild(addItem);
+            }
+        }
+        
+        // تحديد العنصر الذي سيأتي بعده العنصر المُسحب
+        function getDragAfterElement(container, y) {
+            const draggableElements = [...container.querySelectorAll('.medication-item:not(.dragging):not(.add-medication)')];
+            
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+        
+        // إيقاف سحب وإفلات
+        function disableDragAndDrop() {
+            const medicationsList = document.getElementById('medicationsList');
+            if (!medicationsList) return;
+            
+            const items = medicationsList.querySelectorAll('.medication-item');
+            
+            items.forEach(item => {
+                item.removeAttribute('draggable');
+                item.removeEventListener('dragstart', null);
+                item.removeEventListener('dragend', null);
+            });
+            
+            medicationsList.removeEventListener('dragover', null);
+        }
+        
+        // تبديل وضع التحرير
+        function toggleEditMode() {
+            editMode = !editMode;
+            const medicationsList = document.getElementById('medicationsList');
+            const toggleBtn = document.getElementById('toggleEditModeBtn');
+            
+            if (!medicationsList || !toggleBtn) return;
+            
+            if (editMode) {
+                medicationsList.classList.add('edit-mode');
+                toggleBtn.textContent = 'إنهاء التحرير';
+                
+                // إزالة أي أزرار حذف موجودة مسبقًا
+                document.querySelectorAll('.delete-medication').forEach(btn => {
+                    btn.remove();
+                });
+                
+                // تفعيل سحب وإفلات
+                initDragAndDrop();
+            } else {
+                // حفظ الترتيب الجديد
+                const items = medicationsList.querySelectorAll('.medication-item:not(.add-medication)');
+                eyeMedications = Array.from(items).map(item => item.textContent);
+                
+                medicationsList.classList.remove('edit-mode');
+                toggleBtn.textContent = 'تعديل';
+                
+                // إزالة زر الإضافة
+                const addItem = medicationsList.querySelector('.add-medication');
+                if (addItem) {
+                    addItem.remove();
+                }
+                
+                // إيقاف سحب وإفلات
+                disableDragAndDrop();
+                
+                // إعادة تهيئة القائمة لعرض الترتيب الجديد
+                medicationsList.innerHTML = '';
+                initMedicationsList();
+            }
+        }
+        
+        // فتح نافذة إضافة دواء جديد
+        function openAddMedicationModal() {
+            const medicationName = prompt('أدخل اسم الدواء الجديد:');
+            if (medicationName && medicationName.trim() !== '') {
+                // تأكد من عدم إضافة أدوية مكررة
+                if (eyeMedications.some(med => med.trim() === medicationName.trim())) {
+                    showNotification('هذا الدواء موجود مسبقًا', 'error');
+                    return;
+                }
+                
+                eyeMedications.push(medicationName);
+                showNotification(`تمت إضافة الدواء: ${medicationName}`, 'success');
+                
+                // إعادة تهيئة القائمة مع الحفاظ على وضع التحرير
+                const medicationsList = document.getElementById('medicationsList');
+                if (medicationsList) {
+                    medicationsList.innerHTML = '';
+                    initMedicationsList();
+                }
+            }
+        }
+        
+        // تحديث عداد الأدوية المختارة
+        function updateMedicationsCount() {
+            const countDiv = document.getElementById('medicationsCount');
+            const countContainer = document.getElementById('medicationsCountContainer');
+            
+            if (!countContainer) {
+                const medicationsList = document.getElementById('medicationsList');
+                if (!medicationsList) return;
+                
+                // إنشاء الحاوية إذا لم تكن موجودة
+                const container = document.createElement('div');
+                container.id = 'medicationsCountContainer';
+                container.style = 'display: flex; justify-content: space-between; align-items: center; margin-top: 10px;';
+                
+                const countDiv = document.createElement('div');
+                countDiv.id = 'medicationsCount';
+                countDiv.style = 'font-weight: bold; color: var(--secondary-color);';
+                
+                const editBtn = document.createElement('button');
+                editBtn.type = 'button';
+                editBtn.className = 'btn btn-default';
+                editBtn.id = 'toggleEditModeBtn';
+                editBtn.style = 'padding: 5px 15px; font-size: 16px;';
+                editBtn.textContent = 'تعديل';
+                
+                container.appendChild(countDiv);
+                container.appendChild(editBtn);
+                medicationsList.parentElement.appendChild(container);
+                
+                // إضافة حدث لزر التبديل
+                editBtn.addEventListener('click', toggleEditMode);
+            }
+            
+            if (countDiv && typeof selectedMedications !== 'undefined') {
+                countDiv.textContent = `عدد الأدوية المختارة: ${selectedMedications.length}`;
+            }
+        }
+        
+        // تعيين الأدوية المختارة في القائمة
+        function setSelectedMedications(medications) {
+            selectedMedications = medications || [];
+            const medicationsList = document.getElementById('medicationsList');
+            
+            if (medicationsList && document.querySelectorAll('.medication-item').length > 0) {
+                // مسح التحديدات الحالية
+                document.querySelectorAll('.medication-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                
+                // تحديد الأدوية المطلوبة
+                if (medications && medications.length > 0) {
+                    medications.forEach(medication => {
+                        document.querySelectorAll('.medication-item').forEach(item => {
+                            if (item.textContent === medication) {
+                                item.classList.add('selected');
+                            }
+                        });
+                    });
+                }
+                
+                // تحديث العدد
+                updateMedicationsCount();
+            }
+        }
+        
         // تهيئة التطبيق
         async function initApp() {
             // تحميل البيانات من Firebase
             await loadPatientsFromFirebase();
-            
             updateCurrentDate();
             renderPatientsTable();
             updateStats();
+            
+            // تهيئة قائمة الأدوية
+            initMedicationsList();
             
             // أحداث الأزرار
             document.getElementById('prevDayBtn').addEventListener('click', () => changeDate(1)); // السهم الأيسر يزيد التاريخ
@@ -861,6 +1129,12 @@
                     event.target.style.display = 'none';
                 }
             });
+            
+            // إضافة حدث لزر التبديل
+            const toggleBtn = document.getElementById('toggleEditModeBtn');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', toggleEditMode);
+            }
         }
         
         // تحديث التاريخ الحالي
@@ -894,22 +1168,24 @@
         function renderPatientsTable(patientsToShow = null) {
             const tableBody = patientsTableBody;
             tableBody.innerHTML = '';
-    
             const data = patientsToShow || patients.filter(p => p.examDate === formatDate(currentDate));
-
             if (data.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="8">لا توجد بيانات لعرضها</td></tr>';
+                tableBody.innerHTML = '<tr><td colspan="9">لا توجد بيانات لعرضها</td></tr>';
                 return;
             }
-
             data.forEach(patient => {
                 const row = document.createElement('tr');
                 row.dataset.id = patient.id;
+                // إضافة عمود الأدوية
+                const medicationsDisplay = Array.isArray(patient.medications) && patient.medications.length > 0 ? 
+                    patient.medications.join(', ') : 'لم يتم تحديد أدوية';
+                    
                 row.innerHTML = `
                     <td><span class="patient-id">${patient.id}</span></td>
                     <td>${patient.name}</td>
                     <td>${patient.phone}</td>
                     <td>${patient.gender}</td>
+                    <td>${medicationsDisplay}</td>
                     <td>${patient.diagnosis}</td>
                     <td>${patient.examDate}</td>
                     <td>${patient.nextFollowUp}</td>
@@ -920,19 +1196,15 @@
                 tableBody.appendChild(row);
             });
         }
-
         
         // تحديث الإحصائيات
         function updateStats() {
             const today = formatDate(new Date());
-            
             // عدد المرضى الكلي
             totalPatientsEl.textContent = `عدد المرضى الكلي: ${patients.length}`;
-            
             // عدد المرضى لهم موعد اليوم
             const todayFollowups = patients.filter(patient => patient.nextFollowUp === today).length;
             todayFollowupsEl.textContent = `عدد المرضى لهم موعد اليوم: ${todayFollowups}`;
-            
             // عدد المرضى المضافين اليوم
             const addedToday = patients.filter(patient => patient.examDate === today).length;
             addedTodayEl.textContent = `عدد المرضى المضافين اليوم: ${addedToday}`;
@@ -942,19 +1214,20 @@
         function filterPatients() {
             const searchTerm = searchInput.value.toLowerCase();
             const currentDateStr = formatDate(currentDate);
-
             const filteredPatients = patients.filter(patient => 
                 patient.examDate === currentDateStr && (
                     patient.id.toLowerCase().includes(searchTerm) ||
                     patient.name.toLowerCase().includes(searchTerm) ||
                     patient.phone.toLowerCase().includes(searchTerm) ||
                     patient.gender.toLowerCase().includes(searchTerm) ||
+                    // فلترة حسب الأدوية
+                    (Array.isArray(patient.medications) && patient.medications.some(med => 
+                        med.toLowerCase().includes(searchTerm))) ||
                     patient.diagnosis.toLowerCase().includes(searchTerm) ||
                     patient.nextFollowUp.toLowerCase().includes(searchTerm) ||
                     patient.address.toLowerCase().includes(searchTerm)
                 )
             );
-
             renderPatientsTable(filteredPatients);
         }
         
@@ -964,7 +1237,6 @@
             document.querySelectorAll('#patientsTableBody tr').forEach(row => {
                 row.style.backgroundColor = '';
             });
-            
             // تحديد الصف الحالي
             const selectedRow = document.querySelector(`#patientsTableBody tr[data-id="${patientId}"]`);
             if (selectedRow) {
@@ -976,12 +1248,15 @@
         // فتح نافذة إضافة مريض
         function openAddPatientModal() {
             selectedPatientId = null;
+            selectedMedications = []; // إعادة تعيين الأدوية المختارة
             document.getElementById('patientForm').reset();
-            
             // تعيين التواريخ الافتراضية
             examDate = new Date();
             followUpDate = new Date();
             updateDateDisplays();
+            
+            // تهيئة قائمة الأدوية
+            initMedicationsList();
             
             patientModal.style.display = 'block';
         }
@@ -992,21 +1267,21 @@
                 showNotification('الرجاء تحديد مريض للتعديل', 'error');
                 return;
             }
-            
             const patient = patients.find(p => p.id === selectedPatientId);
             if (!patient) return;
-            
             // ملء النموذج ببيانات المريض
             document.getElementById('patientName').value = patient.name;
             document.getElementById('patientPhone').value = patient.phone;
             document.getElementById('patientGender').value = patient.gender;
             document.getElementById('patientDiagnosis').value = patient.diagnosis;
             document.getElementById('patientAddress').value = patient.address;
-            
             // تعيين التواريخ
             examDate = new Date(patient.examDate);
             followUpDate = new Date(patient.nextFollowUp);
             updateDateDisplays();
+            
+            // تعيين الأدوية المختارة
+            setSelectedMedications(Array.isArray(patient.medications) ? patient.medications : []);
             
             patientModal.style.display = 'block';
         }
@@ -1014,30 +1289,27 @@
         // حفظ بيانات المريض
         async function savePatient(e) {
             e.preventDefault();
-            
             const name = document.getElementById('patientName').value.trim();
             if (!name) {
                 showNotification('الاسم مطلوب', 'error');
                 return;
             }
-            
             const patientData = {
                 name: name,
                 phone: document.getElementById('patientPhone').value.trim(),
                 gender: document.getElementById('patientGender').value,
+                medications: selectedMedications, // حفظ الأدوية المختارة
                 diagnosis: document.getElementById('patientDiagnosis').value.trim(),
                 examDate: formatDate(examDate),
                 nextFollowUp: followUpDate.getDate().toString() !== 'NaN' ? formatDate(followUpDate) : 'ليس هناك',
                 address: document.getElementById('patientAddress').value.trim()
             };
-            
             if (selectedPatientId) {
                 // تعديل مريض موجود - الاحتفاظ بنفس الرقم
                 patientData.id = selectedPatientId;
                 const savedPatient = await savePatientToFirebase(patientData);
                 if (savedPatient) {
-                        showNotification('تم تحديث بيانات المريض بنجاح', 'success');
-                    
+                    showNotification('تم تحديث بيانات المريض بنجاح', 'success');
                 }
             } else {
                 // إضافة مريض جديد - توليد رقم سجل جديد
@@ -1047,7 +1319,6 @@
                     showNotification('تم إضافة المريض بنجاح', 'success');
                 }
             }
-            
             closePatientModal();
             renderPatientsTable();
             updateStats();
@@ -1059,7 +1330,6 @@
                 showNotification('الرجاء تحديد مريض للحذف', 'error');
                 return;
             }
-            
             if (confirm('هل تريد حذف المريض؟')) {
                 const success = await deletePatientFromFirebase(selectedPatientId);
                 if (success) {
@@ -1075,13 +1345,16 @@
         // إغلاق نافذة المريض
         function closePatientModal() {
             patientModal.style.display = 'none';
+            // إيقاف وضع التحرير عند إغلاق النافذة
+            if (editMode) {
+                toggleEditMode();
+            }
         }
         
         // فتح نافذة مرضى اليوم
         function openTodayPatientsModal() {
             const today = formatDate(new Date());
             const todayPatients = patients.filter(patient => patient.nextFollowUp === today);
-            
             renderTodayPatientsTable(todayPatients);
             todayPatientsModal.style.display = 'block';
         }
@@ -1090,34 +1363,34 @@
         function renderTodayPatientsTable(patientsToShow) {
             const tableBody = document.getElementById('todayPatientsTableBody');
             tableBody.innerHTML = '';
-            
             if (patientsToShow.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="8">لا توجد بيانات لعرضها</td></tr>';
+                tableBody.innerHTML = '<tr><td colspan="9">لا توجد بيانات لعرضها</td></tr>';
                 return;
             }
-            
             patientsToShow.forEach(patient => {
                 const row = document.createElement('tr');
                 row.dataset.id = patient.id;
-                
+                // إضافة عمود الأدوية
+                const medicationsDisplay = Array.isArray(patient.medications) && patient.medications.length > 0 ? 
+                    patient.medications.join(', ') : 'لم يتم تحديد أدوية';
+                    
                 // عكس ترتيب الأعمدة مع تمييز رقم السجل
                 row.innerHTML = `
                     <td><span class="patient-id">${patient.id}</span></td>
                     <td>${patient.name}</td>
                     <td>${patient.phone}</td>
                     <td>${patient.gender}</td>
+                    <td>${medicationsDisplay}</td>
                     <td>${patient.diagnosis}</td>
                     <td>${patient.examDate}</td>
                     <td>${patient.nextFollowUp}</td>
                     <td>${patient.address}</td>
                 `;
-                
                 row.addEventListener('dblclick', () => {
                     selectedPatientId = patient.id;
                     closeAllModals();
                     openEditPatientModal();
                 });
-                
                 tableBody.appendChild(row);
             });
         }
@@ -1126,19 +1399,20 @@
         function filterTodayPatients() {
             const searchTerm = document.getElementById('todaySearchInput').value.toLowerCase();
             const today = formatDate(new Date());
-
             const filteredPatients = patients.filter(patient => 
                 patient.nextFollowUp === today && (
                     patient.id.toLowerCase().includes(searchTerm) ||
                     patient.name.toLowerCase().includes(searchTerm) ||
                     patient.phone.toLowerCase().includes(searchTerm) ||
                     patient.gender.toLowerCase().includes(searchTerm) ||
+                    // فلترة حسب الأدوية
+                    (Array.isArray(patient.medications) && patient.medications.some(med => 
+                        med.toLowerCase().includes(searchTerm))) ||
                     patient.diagnosis.toLowerCase().includes(searchTerm) ||
                     patient.examDate.toLowerCase().includes(searchTerm) ||
                     patient.address.toLowerCase().includes(searchTerm)
                 )
             );
-
             renderTodayPatientsTable(filteredPatients);
         }
         
@@ -1152,34 +1426,34 @@
         function renderGlobalSearchTable(patientsToShow) {
             const tableBody = document.getElementById('globalSearchTableBody');
             tableBody.innerHTML = '';
-            
             if (patientsToShow.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="8">لا توجد بيانات لعرضها</td></tr>';
+                tableBody.innerHTML = '<tr><td colspan="9">لا توجد بيانات لعرضها</td></tr>';
                 return;
             }
-            
             patientsToShow.forEach(patient => {
                 const row = document.createElement('tr');
                 row.dataset.id = patient.id;
-                
+                // إضافة عمود الأدوية
+                const medicationsDisplay = Array.isArray(patient.medications) && patient.medications.length > 0 ? 
+                    patient.medications.join(', ') : 'لم يتم تحديد أدوية';
+                    
                 // عكس ترتيب الأعمدة مع تمييز رقم السجل
                 row.innerHTML = `
                     <td><span class="patient-id">${patient.id}</span></td>
                     <td>${patient.name}</td>
                     <td>${patient.phone}</td>
                     <td>${patient.gender}</td>
+                    <td>${medicationsDisplay}</td>
                     <td>${patient.diagnosis}</td>
                     <td>${patient.examDate}</td>
                     <td>${patient.nextFollowUp}</td>
                     <td>${patient.address}</td>
                 `;
-                
                 row.addEventListener('dblclick', () => {
                     selectedPatientId = patient.id;
                     closeAllModals();
                     openEditPatientModal();
                 });
-                
                 tableBody.appendChild(row);
             });
         }
@@ -1187,47 +1461,44 @@
         // فلترة البحث الشامل
         function filterGlobalSearch() {
             const searchTerm = document.getElementById('globalSearchInput').value.toLowerCase();
-
             const filteredPatients = patients.filter(patient => 
                 patient.id.toLowerCase().includes(searchTerm) ||
                 patient.name.toLowerCase().includes(searchTerm) ||
                 patient.phone.toLowerCase().includes(searchTerm) ||
                 patient.gender.toLowerCase().includes(searchTerm) ||
+                // فلترة حسب الأدوية
+                (Array.isArray(patient.medications) && patient.medications.some(med => 
+                    med.toLowerCase().includes(searchTerm))) ||
                 patient.diagnosis.toLowerCase().includes(searchTerm) ||
                 patient.examDate.toLowerCase().includes(searchTerm) ||
                 patient.nextFollowUp.toLowerCase().includes(searchTerm) ||
                 patient.address.toLowerCase().includes(searchTerm)
             );
-
             renderGlobalSearchTable(filteredPatients);
         }
-
         
         // تصدير البيانات إلى ملف Excel
         function exportData() {
             // إنشاء ورقة عمل جديدة
             const wb = XLSX.utils.book_new();
-            
             // تحويل بيانات المرضى إلى ورقة عمل
             const ws = XLSX.utils.json_to_sheet(patients.map(patient => ({
                 "رقم السجل": patient.id,
                 "الاسم": patient.name,
                 "الهاتف": patient.phone,
                 "النوع": patient.gender,
+                "الأدوية": Array.isArray(patient.medications) ? patient.medications.join(', ') : '',
                 "التشخيص/ملاحظات": patient.diagnosis,
                 "تاريخ الكشف": patient.examDate,
                 "المتابعة القادمة": patient.nextFollowUp,
                 "العنوان": patient.address
             })));
-            
             // إضافة ورقة العمل إلى المصنف
             XLSX.utils.book_append_sheet(wb, ws, "المرضى");
-            
             // إنشاء ملف Excel وتنزيله
             const today = new Date();
             const fileName = `بيانات_المرضى_${formatDate(today)}.xlsx`;
             XLSX.writeFile(wb, fileName);
-            
             showNotification('تم تصدير البيانات بنجاح', 'success');
         }
         
@@ -1264,6 +1535,10 @@
             document.querySelectorAll('.modal').forEach(modal => {
                 modal.style.display = 'none';
             });
+            // إيقاف وضع التحرير عند إغلاق جميع النوافذ
+            if (editMode) {
+                toggleEditMode();
+            }
         }
         
         // عرض إشعار
@@ -1271,12 +1546,10 @@
             notification.textContent = message;
             notification.className = `notification ${type}`;
             notification.style.display = 'block';
-            
             // إضافة تأثير حركي للإشعارات
             setTimeout(() => {
                 notification.classList.add('show');
             }, 10);
-            
             setTimeout(() => {
                 notification.classList.remove('show');
                 setTimeout(() => {
